@@ -11306,53 +11306,6 @@ li>a#ytLink {
   color: #a46060;
 }
 
-div#connectDialog {
-  display: none;
-  width: 480px;
-  height: 180px;
-  border-radius: 4px;
-  padding: 24px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(15, 13, 5, 0.84);
-}
-
-@media(max-width: 310px) {
-  div#connectDialog {
-    visibility: hidden;
-  }
-}
-
-@media(max-width: 520px) {
-  div#connectDialog {
-    width: 80%;
-    height: 250px;
-    border-radius: 4px;
-    padding: 24px;
-    position: absolute;
-    top: 30%;
-    background-color: rgba(15, 13, 5, 0.94);
-  }
-}
-
-div#connectDialog>a#okBtn {
-  text-decoration: none !important;
-  color: #737373;
-  border: 1px solid #595858 !important;
-  border-color: #737373;
-  border-radius: 4px;
-  padding: 0px 20px;
-  position: absolute;
-  left: 50%;
-  margin-right: -50%;
-  margin-top: 22px;
-  transform: translate(-50%, -50%);
-  box-shadow: 2px 2px 21px #0000008a;
-}
-
 iframe#videoPlayer {
   box-shadow: 2px 2px 21px #0000008a;
   border-radius: 4px;
