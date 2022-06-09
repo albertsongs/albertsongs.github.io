@@ -11307,31 +11307,80 @@ li>a#ytLink {
 }
 
 iframe#videoPlayer {
+  --height: 300px;
+  --width: calc(var(--height)/9*16);
+  --margin-offset: 100%;
+  width: var(--width);
+  height: var(--height);
+  margin-top: calc(100% - var(--margin-offset));
+  margin-bottom: 60px;
+  margin-left: auto;
+  margin-right: auto;
   box-shadow: 2px 2px 21px #0000008a;
   border-radius: 4px;
 }
 
+/**
+ * For landscape mode
+ */ 
+
 @media (min-width: 576px) {
   iframe#videoPlayer {
-    width: 490px;
-    height: 284px;
+    --height: 278px;
   }
 }
 @media (min-width: 768px) {
   iframe#videoPlayer {
-    width: 674px;
-    height: 380px;
+    --height: 380px;
   }
 }
 @media (min-width: 992px) {
   iframe#videoPlayer {
-    width: 674px;
-    height: 380px;
+    --height: 436px;
   }
 }
 @media (min-width: 1200px) {
   iframe#videoPlayer {
-    width: 790px;
-    height: 444px;
+    --height: 444px;
+  }
+}
+@media (min-width: 1920px) {
+  iframe#videoPlayer {
+    --height:720px;
+  }
+}
+@media (min-width: 2048px) {
+  iframe#videoPlayer {
+    --height: 780px;
+  }
+}
+@media (min-width: 3840px) {
+  iframe#videoPlayer {
+    --height: 1020px;
+  }
+}
+
+/**
+ * For portrait mode
+ */ 
+
+@media (max-width: 1024px) and (min-height: 700px){
+  iframe#videoPlayer{
+    --height: 180px;
+    --margin-offset: 350px;
+  }
+}
+
+@media (max-width: 900px) and (min-height: 1024px){
+  iframe#videoPlayer{
+    --height: 360px;
+    --margin-offset: 600px;
+  }
+}
+
+@media (max-width: 480px) and (min-height: 600px){
+  iframe#videoPlayer{
+    --height: 180px;
+    --margin-offset: 280px;
   }
 }
