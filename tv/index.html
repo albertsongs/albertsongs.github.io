@@ -11,12 +11,29 @@
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://albertsongs.github.io/background.png" />
         <link rel="canonical" href="https://albertsongs.github.io/tv">
-        <title>albertsongs</title>
+        <title>albertsongs TV</title>
         <link rel="icon" type="image/x-icon" href="../favicon.ico" />
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <iframe id="videoPlayer" width="100%" src="https://www.youtube.com/embed/videoseries?autoplay=1&controls=1&list=PLjv4Gt_enoJvL5QUt1H3bv9F3Omuj9n3g&loop=1&cc_load_policy=1&color=white" title="Нити времени (2022)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <script src="js/scripts.js"></script>
+        <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+        <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+        <script type="text/javascript" src="js/scripts.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript">
+            let apiUrl = 'http://localhost:8080';
+            let app = new App(apiUrl, localStorage.getItem('receiverId'), function(mess){
+                const messContainer = JSON.parse(mess.body);
+                const videoInfo = JSON.parse(messContainer.message);
+                const youtubeLinkPattern = "https://www.youtube.com/embed/%videoId%?autoplay=1&cc_load_policy=1&list=%playlistId%&listType=playlist&loop=1&color=white";
+                const youtubeLink = youtubeLinkPattern.replace('%videoId%', videoInfo.videoId).replace('%playlistId%', videoInfo.playlistId);
+                document.getElementById("videoPlayer").src = youtubeLink;
+                console.log(mess);
+            });
+            app.registerReceiver();
+        </script>
     </body>
 </html>
