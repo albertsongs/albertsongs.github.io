@@ -8,55 +8,56 @@ class App {
 		this.listElemId = listElemId;
 	}
 	initReceiverId() {
-		const xhttp = new XMLHttpRequest();
+		const xHttp = new XMLHttpRequest();
 		const receiverControllerPath = "/api/v1/receivers";
 		const url = this.apiUrl + receiverControllerPath;
 		let that = this;
-		xhttp.onreadystatechange = function() {
-		    if (this.readyState == 4 && this.status == 200) {
-		       const response = JSON.parse(xhttp.responseText);
+		xHttp.onreadystatechange = function() {
+		    if (this.readyState === 4 && this.status === 200) {
+		       const response = JSON.parse(xHttp.responseText);
 		       const receivers = response.list;
 		       that.receiverId = receivers[0].id;
 		       that.loadVideos();
 		    }
 		};
-		xhttp.open("GET", url, true);
-		xhttp.send();
+		xHttp.open("GET", url, true);
+		xHttp.send();
 	}
 	sendVideoIdToReceiver(videoId){
 		if (this.receiverId === null || videoId === null){
 	        return;
 	    }
-	    const xhttp = new XMLHttpRequest();
+	    const xHttp = new XMLHttpRequest();
 	    const receiverControllerPath = '/api/v1/receivers/{receiverId}/playYoutubeVideo'
 	    	.replace('{receiverId}', this.receiverId);
 	    const url = this.apiUrl + receiverControllerPath;
 	    let videoInfo = {
 	        id: videoId
 	    };
-	    xhttp.onreadystatechange = function() {
-	        if (this.readyState == 4 && this.status == 200) {
-	            console.log(xhttp.response);
+	    xHttp.onreadystatechange = function() {
+	        if (this.readyState === 4 && this.status === 200) {
+	            console.log(xHttp.response);
 	        }
 	    };
-	    xhttp.open('POST', url, true);
-	    xhttp.setRequestHeader('Content-type', 'application/json');
-	    xhttp.send(JSON.stringify(videoInfo));
+	    xHttp.open('POST', url, true);
+	    xHttp.setRequestHeader('Content-type', 'application/json');
+	    xHttp.send(JSON.stringify(videoInfo));
 	}
 	loadVideos(){
-		const xhttp = new XMLHttpRequest();
+		const xHttp = new XMLHttpRequest();
 		const receiverControllerPath = "/api/v1/videos";
 		const url = this.apiUrl + receiverControllerPath;
 		let that = this;
-		xhttp.onreadystatechange = function() {
-		    if (this.readyState == 4 && this.status == 200) {
-		       const response = JSON.parse(xhttp.responseText);
+		xHttp.onreadystatechange = function() {
+		    if (this.readyState === 4 && this.status === 200) {
+		       const response = JSON.parse(xHttp.responseText);
 		       that.videos = response.list;
 		       that.renderVideoList(that.videos);
+		       that.hideLoader();
 		    }
 		};
-		xhttp.open("GET", url, true);
-		xhttp.send();
+		xHttp.open("GET", url, true);
+		xHttp.send();
 	}
 	renderVideoList(videos){
 		let listElem = document.getElementById(this.listElemId);
@@ -70,5 +71,8 @@ class App {
 			})
 			listElem.appendChild(newItem);
 		}
+	}
+	hideLoader(){
+		document.getElementById("loader").style.setProperty('display', 'none');
 	}
 }

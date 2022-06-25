@@ -13,16 +13,17 @@
 		<title>Пульт управления albertsongs TV</title>
 		<link rel="icon" type="image/x-icon" href="../favicon.ico" />
 		<link href="css/styles.css" rel="stylesheet" />
-		<script type="text/javascript" src="/js/app.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 		<script type="text/javascript">
-			let app = new App('http://localhost:8080', 'videoList');
-            app.initReceiverId();
+			let app = new App('https://albertsongs.asuscomm.com', 'videoList');
+         app.initReceiverId();
 		</script>
    </head>
    <body>
 		<div class="header">
-			<h2>Нити времени</h2>
+			<h1>Нити времени</h1>
 		</div>
+		<div id="loader" class="loader">Loading...</div>
 		<ul id="videoList"></ul> 
    </body>
 </html>

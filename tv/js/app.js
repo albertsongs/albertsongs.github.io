@@ -2,7 +2,7 @@
  * @albertsongs (https://github.com/albertsongs) 
  */
 class App {
-    constructor(apiUrl, receiverId, messageHandler){
+    constructor(apiUrl, receiverId, changeReceiverIdHandler, messageHandler){
         this.apiUrl = apiUrl;
         this.receiverId = receiverId;
         this.messageHandler = messageHandler;
@@ -15,55 +15,60 @@ class App {
         let receiverChanel = CHANEL_PATTERN.replace('%userId%', receiverId);
         stompClient.connect({user: receiverId}, () => {
             stompClient.subscribe(receiverChanel, (mess) => this.messageHandler(mess));
-            var message = {
+            const message = {
                 senderName: receiverId,
-                status:"JOIN"
+                status: "JOIN"
             };
             stompClient.send('/app/message', {}, JSON.stringify(message));
         }, (err) => console.log(err));
     }
-    updateReceiver(){
-        const xhttp = new XMLHttpRequest();
-        const receiverControllerPath = '/api/v1/receivers/' + this.receiverId;
-        const url = this.apiUrl + receiverControllerPath;
-        let that = this;
-        let receiverInfo = {
-            name: navigator.userAgent
-        };
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(xhttp.responseText);
-                that.connectToWebSocket();
-            }
-        };
-        xhttp.open('PATCH', url, true);
-        xhttp.setRequestHeader('Content-type', 'application/json');
-        xhttp.send(JSON.stringify(receiverInfo));
-        this.connectToWebSocket();
-    }
     registerReceiver(){
-        if (this.receiverId !== null){
-            this.updateReceiver();
-            return;
-        }
-        const xhttp = new XMLHttpRequest();
+        this.receiverId == null
+            ? this.createReceiver()
+            : this.updateReceiver()
+    }
+    createReceiver(){
+        const xHttp = new XMLHttpRequest();
         const receiverControllerPath = '/api/v1/receivers';
         const url = this.apiUrl + receiverControllerPath;
         let that = this;
         let receiverInfo = {
             name: navigator.userAgent
         };
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                console.log(xhttp.responseText);
-                let receiver = JSON.parse(xhttp.responseText);
-                that.receiverId = id;
-                localStorage.setItem('receiverId', receiver.id);
+        xHttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log(xHttp.responseText);
+                let receiver = JSON.parse(xHttp.responseText);
+                that.receiverId = receiver.id;
+                changeReceiverIdHandler(that.receiverId);
                 that.connectToWebSocket();
             }
         };
-        xhttp.open('POST', url, true);
-        xhttp.setRequestHeader('Content-type', 'application/json');
-        xhttp.send(JSON.stringify(receiverInfo));
+        xHttp.open('POST', url, true);
+        xHttp.setRequestHeader('Content-type', 'application/json');
+        xHttp.send(JSON.stringify(receiverInfo));
+    }
+    updateReceiver(){
+        const xHttp = new XMLHttpRequest();
+        const receiverControllerPath = '/api/v1/receivers/' + this.receiverId;
+        const url = this.apiUrl + receiverControllerPath;
+        let that = this;
+        let receiverInfo = {
+            name: navigator.userAgent
+        };
+        xHttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log(xHttp.responseText);
+                that.connectToWebSocket();
+                return;
+            }
+            that.receiverId = null;
+            changeReceiverIdHandler(that.receiverId);
+            that.createReceiver();
+        };
+        xHttp.open('PATCH', url, true);
+        xHttp.setRequestHeader('Content-type', 'application/json');
+        xHttp.send(JSON.stringify(receiverInfo));
+        this.connectToWebSocket();
     }
 }
