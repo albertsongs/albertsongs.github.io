@@ -16,7 +16,11 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        <iframe id="videoPlayer" width="100%" src="https://www.youtube.com/embed/videoseries?autoplay=1&controls=1&list=PLjv4Gt_enoJvL5QUt1H3bv9F3Omuj9n3g&loop=1&cc_load_policy=1&color=white" title="Нити времени (2022)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="videoPlayer" width="100%"
+                src="https://www.youtube.com/embed/videoseries?autoplay=1&controls=1
+                &list=PLjv4Gt_enoJvL5QUt1H3bv9F3Omuj9n3g&loop=1&cc_load_policy=1&color=white"
+                title="Нити времени (2022)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
+                picture-in-picture" allowfullscreen></iframe>
         <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
         <script type="text/javascript"
@@ -30,12 +34,16 @@
             let messageHandler = (mess) => {
                 const messContainer = JSON.parse(mess.body);
                 const videoInfo = JSON.parse(messContainer.message);
-                const youtubeLinkPattern = "https://www.youtube.com/embed/%videoId%?autoplay=1&cc_load_policy=1&list=%playlistId%&listType=playlist&loop=1&color=white";
+                loadVideo(videoInfo);
+                console.log(mess);
+            };
+            let loadVideo = (videoInfo) => {
+                const youtubeLinkPattern = "https://www.youtube.com/embed/%videoId%?autoplay=1&cc_load_policy=1" +
+                    "&list=%playlistId%&listType=playlist&loop=1&color=white";
                 document.getElementById("videoPlayer").src = youtubeLinkPattern
                     .replace('%videoId%', videoInfo.videoId)
                     .replace('%playlistId%', videoInfo.playlistId);
-                console.log(mess);
-            };
+            }
             let app = new App(apiUrl, receiverId, changeReceiverIdHandler, messageHandler);
             app.registerReceiver();
         </script>
