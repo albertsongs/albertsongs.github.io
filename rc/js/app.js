@@ -74,27 +74,29 @@ class App {
 
 class UI {
     constructor(listElemId) {
-        this.listElemId = listElemId;
+        this.listElem = document.getElementById(listElemId);
+        this.loaderElem = document.getElementById("loader");
+        this.searchReceiverDescElem = document.getElementById("searchReceiverDesc");
+        this.loadVideosDescElem = document.getElementById("loadVideosDesc");
     }
 
     step1() {
-        document.getElementById("searchReceiverDesc").style.setProperty('display', 'block');
-        document.getElementById("loadVideosDesc").style.setProperty('display', 'none');
+        this.searchReceiverDescElem.style.setProperty('display', 'block');
+        this.loadVideosDescElem.style.setProperty('display', 'none');
     }
 
     step2() {
-        document.getElementById("searchReceiverDesc").style.setProperty('display', 'none');
-        document.getElementById("loadVideosDesc").style.setProperty('display', 'block');
+        this.searchReceiverDescElem.style.setProperty('display', 'none');
+        this.loadVideosDescElem.style.setProperty('display', 'block');
     }
 
     step3() {
-        document.getElementById("searchReceiverDesc").style.setProperty('display', 'none');
-        document.getElementById("loadVideosDesc").style.setProperty('display', 'none');
-        document.getElementById("loader").style.setProperty('display', 'none');
+        this.searchReceiverDescElem.style.setProperty('display', 'none');
+        this.loadVideosDescElem.style.setProperty('display', 'none');
+        this.loaderElem.style.setProperty('display', 'none');
     }
 
     renderVideoList(videos) {
-        let listElem = document.getElementById(this.listElemId);
         for (let video of videos) {
             console.log(video);
             let newItem = document.createElement("li");
@@ -103,7 +105,7 @@ class UI {
             newItem.addEventListener('click', function () {
                 app.sendVideoIdToReceiver(this.getAttribute('id'))
             })
-            listElem.appendChild(newItem);
+            this.listElem.appendChild(newItem);
         }
     }
 }
