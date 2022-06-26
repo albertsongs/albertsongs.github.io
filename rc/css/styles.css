@@ -138,3 +138,13 @@ ul li.selected::before {
     box-shadow: 0 2.5em 0 0;
   }
 }
+
+.process-description {
+  text-align: center;
+  font-size: 18pt;
+  color: white;
+}
+
+#loadVideosDesc {
+  display: none;
+}
