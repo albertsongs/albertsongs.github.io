@@ -11926,10 +11926,7 @@ iframe#videoPlayer {
     --margin-offset: 100%;
     width: var(--width);
     height: var(--height);
-    margin-top: calc(100% - var(--margin-offset));
-    margin-bottom: 60px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: calc(100% - var(--margin-offset)) auto 60px;
     box-shadow: 2px 2px 21px #0000008a;
     border-radius: 4px;
     border: 0;
