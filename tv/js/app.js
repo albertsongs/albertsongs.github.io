@@ -1,13 +1,14 @@
 /**
- * @albertsongs (https://github.com/albertsongs) 
+ * @albertsongs (https://github.com/albertsongs)
  */
 class App {
-    constructor(apiUrl, receiverId, changeReceiverIdHandler, messageHandler){
+    constructor(apiUrl, receiverId, changeReceiverIdHandler, messageHandler) {
         this.apiUrl = apiUrl;
         this.receiverId = receiverId;
         this.messageHandler = messageHandler;
     }
-    connectToWebSocket(){
+
+    connectToWebSocket() {
         const receiverId = this.receiverId;
         const CHANEL_PATTERN = '/user/%userId%/private';
         let sock = new SockJS(this.apiUrl + '/ws');
@@ -22,12 +23,14 @@ class App {
             stompClient.send('/app/message', {}, JSON.stringify(message));
         }, (err) => console.log(err));
     }
-    registerReceiver(){
+
+    registerReceiver() {
         this.receiverId == null
             ? this.createReceiver()
             : this.updateReceiver()
     }
-    createReceiver(){
+
+    createReceiver() {
         const xHttp = new XMLHttpRequest();
         const receiverControllerPath = '/api/v1/receivers';
         const url = this.apiUrl + receiverControllerPath;
@@ -35,7 +38,7 @@ class App {
         let receiverInfo = {
             name: navigator.userAgent
         };
-        xHttp.onreadystatechange = function() {
+        xHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 console.log(xHttp.responseText);
                 let receiver = JSON.parse(xHttp.responseText);
@@ -48,7 +51,8 @@ class App {
         xHttp.setRequestHeader('Content-type', 'application/json');
         xHttp.send(JSON.stringify(receiverInfo));
     }
-    updateReceiver(){
+
+    updateReceiver() {
         const xHttp = new XMLHttpRequest();
         const receiverControllerPath = '/api/v1/receivers/' + this.receiverId;
         const url = this.apiUrl + receiverControllerPath;
@@ -56,7 +60,7 @@ class App {
         let receiverInfo = {
             name: navigator.userAgent
         };
-        xHttp.onreadystatechange = function() {
+        xHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 console.log(xHttp.responseText);
                 that.connectToWebSocket();
