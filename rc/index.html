@@ -14,11 +14,6 @@
 		<link rel="icon" type="image/x-icon" href="../favicon.ico" />
 		<link href="css/styles.css" rel="stylesheet" />
 		<script type="text/javascript" src="js/app.js"></script>
-		<script type="text/javascript">
-			let ui = new UI('videoList');
-			let app = new App('https://albertsongs.asuscomm.com', ui);
-         	app.initReceiverId();
-		</script>
    </head>
    <body>
 		<div class="header">
@@ -27,6 +22,11 @@
 		<div id="loader" class="loader">Загрузка...</div>
 		<div id="searchReceiverDesc" class="process-description">Поиск ТВ-приёмника...</div>
 		<div id="loadVideosDesc" class="process-description">Загрузка списка видео...</div>
-		<ul id="videoList"></ul> 
+		<ul id="videoList"></ul>
+		<script type="text/javascript">
+			let ui = new UI('videoList');
+			let app = new App('https://albertsongs.asuscomm.com', ui);
+			app.initReceiverId();
+		</script>
    </body>
 </html>
