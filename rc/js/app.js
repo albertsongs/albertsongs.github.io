@@ -37,14 +37,14 @@ class App {
             return;
         }
         const xHttp = new XMLHttpRequest();
-        const receiverControllerPath = '/api/v1/receivers/{receiverId}/playYoutubeVideo'
+        const receiverControllerPath = '/api/v1/receivers/{receiverId}/playVideo'
             .replace('{receiverId}', this.receiverId);
         const url = this.apiUrl + receiverControllerPath;
         let videoInfo = {
             id: videoId
         };
         xHttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
+            if (this.readyState === 4 && this.status === 202) {
                 console.log(xHttp.response);
             }
         };

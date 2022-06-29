@@ -42,8 +42,8 @@
         const youtubeLinkPattern = "https://www.youtube.com/embed/%videoId%?autoplay=1&cc_load_policy=1" +
             "&list=%playlistId%&listType=playlist&loop=1&color=white";
         document.getElementById("videoPlayer").src = youtubeLinkPattern
-            .replace('%videoId%', videoInfo.videoId)
-            .replace('%playlistId%', videoInfo.playlistId);
+            .replace('%videoId%', videoInfo.youtube.videoId)
+            .replace('%playlistId%', videoInfo.youtube.playlistId);
     }
     let app = new App(apiUrl, receiverId, changeReceiverIdHandler, messageHandler);
     app.registerReceiver();
