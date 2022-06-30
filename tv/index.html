@@ -34,8 +34,10 @@
     let changeReceiverIdHandler = (receiverId) => localStorage.setItem('receiverId', receiverId);
     let messageHandler = (mess) => {
         const messContainer = JSON.parse(mess.body);
-        const videoInfo = JSON.parse(messContainer.message);
-        loadVideo(videoInfo);
+        const command = JSON.parse(messContainer.message);
+        if(command.type === 'PLAY_YOUTUBE_VIDEO' && command.payload !== null){
+            loadVideo(command.payload);
+        }
         console.log(mess);
     };
     let loadVideo = (videoInfo) => {
