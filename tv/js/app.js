@@ -73,6 +73,5 @@ class App {
         xHttp.open('PATCH', url, true);
         xHttp.setRequestHeader('Content-type', 'application/json');
         xHttp.send(JSON.stringify(receiverInfo));
-        this.connectToWebSocket();
     }
 }
