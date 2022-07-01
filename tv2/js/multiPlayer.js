@@ -77,12 +77,12 @@ class MultiPlayer {
         this.videoPlayer.getElementsByTagName("track")[0].src = videoInfo.subtitlesUrl;
     }
     nextTrack() {
-        this.loadRawVideo(this.videos[this.videoIndex]);
         this.videoIndex = (this.videoIndex + 1) % this.videosCount;
+        this.loadRawVideo(this.videos[this.videoIndex]);
     }
     previousTrack() {
-        this.loadRawVideo(this.videos[this.videoIndex]);
         this.videoIndex = (this.videoIndex - 1) % this.videosCount;
+        this.loadRawVideo(this.videos[this.videoIndex]);
     }
     getVideoIndex(videoInfo) {
         if (videoInfo.id === null) {
