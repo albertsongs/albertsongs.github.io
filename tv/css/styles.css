@@ -5,5 +5,10 @@
 * Licensed under MIT (https://github.com/albertsongs/albertsongs/blob/master/LICENSE)
 */
 body {
-	margin: 0px;
+    margin: 0;
+    background: black;
+}
+
+iframe {
+    border: 0;
 }
