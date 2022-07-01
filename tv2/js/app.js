@@ -55,7 +55,7 @@ class App {
                 console.log(xHttp.responseText);
                 let receiver = JSON.parse(xHttp.responseText);
                 that.receiverId = receiver.id;
-                this.changeReceiverIdHandler(that.receiverId);
+                that.changeReceiverIdHandler(that.receiverId);
                 that.connectToWebSocket();
                 that.loadVideos();
             }
@@ -81,7 +81,7 @@ class App {
             }
             else if (this.readyState > 1 && [400,404].includes(this.status)){
                 that.receiverId = null;
-                this.changeReceiverIdHandler(that.receiverId);
+                that.changeReceiverIdHandler(that.receiverId);
                 that.createReceiver();
             }
         };
