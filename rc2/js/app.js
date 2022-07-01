@@ -111,7 +111,7 @@ class UI {
     renderControlPanel() {
         this.controlPanel.playPauseElem.innerText = "play/pause";
         this.controlPanel.previousElem.innerText = "previous";
-        this.controlPanel.nextElem.innerText = "previous";
+        this.controlPanel.nextElem.innerText = "next";
         this.controlPanel.volumeDownElem.innerText = "volume down";
         this.controlPanel.volumeUpElem.innerText = "volume up";
         this.controlPanel.controlPanelElem.appendChild(this.controlPanel.volumeDownElem);
