@@ -94,10 +94,11 @@ class App {
         const xHttp = new XMLHttpRequest();
         const receiverControllerPath = "/api/v1/videos";
         const url = this.apiUrl + receiverControllerPath;
+        let that = this;
         xHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 const response = JSON.parse(xHttp.responseText);
-                this.multiPlayer.setVideos(response.list);
+                that.multiPlayer.setVideos(response.list);
             }
         };
         xHttp.open("GET", url, true);
