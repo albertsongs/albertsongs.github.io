@@ -17,7 +17,7 @@ class MultiPlayer {
                 break;
             case 'PLAY_VIDEO':
                 this.loadRawVideo(command.payload);
-                this.videoIndex = this.getVideoIndex(videoInfo);
+                this.videoIndex = this.getVideoIndex(command.payload);
                 break;
             case 'PLAY':
                 this.videoPlayer.play();
