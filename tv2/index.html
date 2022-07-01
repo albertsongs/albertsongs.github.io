@@ -16,7 +16,7 @@
     <link rel="icon" type="image/x-icon" href="../favicon.ico"/>
     <link href="css/styles.css" rel="stylesheet"/>
 </head>
-<body>
+<body onload="start()">
 <iframe id="iframePlayer" width="100%"
         title="Нити времени (2022)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
                 picture-in-picture" allowfullscreen></iframe>
@@ -31,7 +31,7 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/multiPlayer.js"></script>
 <script type="text/javascript">
-    document.onload = function () {
+    let start = function () {
         let apiUrl = 'https://albertsongs.asuscomm.com';
         let receiverId = localStorage.getItem('receiverId');
         let changeReceiverIdHandler = (receiverId) => localStorage.setItem('receiverId', receiverId);
