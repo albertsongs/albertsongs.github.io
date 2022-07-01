@@ -62,11 +62,15 @@ class App {
             name: navigator.userAgent
         };
         xHttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
+            if (this.readyState !== 4) {
+                return;
+            }
+            if (this.status === 200) {
                 console.log(xHttp.responseText);
                 that.connectToWebSocket();
+                that.loadVideos();
             }
-            else if (this.readyState > 1 && [400,404].includes(this.status)){
+            else if ([400,404].includes(this.status)){
                 that.receiverId = null;
                 that.changeReceiverIdHandler(that.receiverId);
                 that.createReceiver();
