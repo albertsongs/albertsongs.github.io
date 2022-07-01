@@ -92,7 +92,7 @@ class App {
 
     loadVideos() {
         const xHttp = new XMLHttpRequest();
-        const receiverControllerPath = "/api/v1.1/videos";
+        const receiverControllerPath = "/api/v1/videos";
         const url = this.apiUrl + receiverControllerPath;
         xHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {

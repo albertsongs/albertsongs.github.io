@@ -1,3 +1,6 @@
+/**
+ * @albertsongs (https://github.com/albertsongs)
+ */
 class MultiPlayer {
     constructor(videoPlayer, iframePlayer, initVolume, changePlayerVolumeHandler) {
         this.videoPlayer = videoPlayer;
@@ -61,11 +64,15 @@ class MultiPlayer {
     loadYoutubeVideo(videoInfo) {
         const youtubeLinkPattern = "https://www.youtube.com/embed/%videoId%?autoplay=1&cc_load_policy=1" +
             "&list=%playlistId%&listType=playlist&loop=1&color=white";
+        this.videoPlayer.style.setProperty('display', 'none');
+        this.iframePlayer.style.setProperty('display', 'block');
         this.iframePlayer.src = youtubeLinkPattern
             .replace('%videoId%', videoInfo.youtube.videoId)
             .replace('%playlistId%', videoInfo.youtube.playlistId);
     }
     loadRawVideo(videoInfo) {
+        this.iframePlayer.style.setProperty('display', 'none');
+        this.videoPlayer.style.setProperty('display', 'block');
         this.videoPlayer.src = videoInfo.url;
         this.videoPlayer.getElementById('subtitles').src = videoInfo.subtitlesUrl;
     }
