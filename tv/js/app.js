@@ -64,11 +64,12 @@ class App {
             if (this.readyState === 4 && this.status === 200) {
                 console.log(xHttp.responseText);
                 that.connectToWebSocket();
-                return;
             }
-            that.receiverId = null;
-            changeReceiverIdHandler(that.receiverId);
-            that.createReceiver();
+            else if (this.readyState > 1 && [400,404].includes(this.status)){
+                that.receiverId = null;
+                changeReceiverIdHandler(that.receiverId);
+                that.createReceiver();
+            }
         };
         xHttp.open('PATCH', url, true);
         xHttp.setRequestHeader('Content-type', 'application/json');
