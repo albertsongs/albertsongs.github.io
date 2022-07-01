@@ -33,7 +33,7 @@
 <script type="text/javascript">
     let apiUrl = 'https://albertsongs.asuscomm.com';
     let localStorage = window.localStorage;
-    let receiverId = localStorage?.getItem('receiverId');
+    let receiverId = localStorage?.getItem('receiverId') ?? null;
     let changeReceiverIdHandler = (receiverId) => localStorage?.setItem('receiverId', receiverId);
     let changePlayerVolumeHandler = (volume) => localStorage?.setItem('volume', volume);
 
