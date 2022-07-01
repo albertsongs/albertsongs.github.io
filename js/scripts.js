@@ -1,4 +1,4 @@
-var videoPlayer = document.getElementById("videoPlayer");
+var videoPlayer = document.getElementById("iframePlayer");
 
 function openFullscreen() {
     if (videoPlayer.requestFullscreen) {

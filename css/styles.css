@@ -11920,7 +11920,7 @@ li > a#ytLink {
     color: #a46060;
 }
 
-iframe#videoPlayer {
+iframe#iframePlayer {
     --height: 300px;
     --width: calc(var(--height) / 9 * 16);
     --margin-offset: 100%;
@@ -11937,43 +11937,43 @@ iframe#videoPlayer {
  */
 
 @media (min-width: 576px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 278px;
     }
 }
 
 @media (min-width: 768px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 380px;
     }
 }
 
 @media (min-width: 992px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 436px;
     }
 }
 
 @media (min-width: 1200px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 444px;
     }
 }
 
 @media (min-width: 1920px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 720px;
     }
 }
 
 @media (min-width: 2048px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 780px;
     }
 }
 
 @media (min-width: 3840px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 1020px;
     }
 }
@@ -11983,21 +11983,21 @@ iframe#videoPlayer {
  */
 
 @media (max-width: 1024px) and (min-height: 700px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 180px;
         --margin-offset: 350px;
     }
 }
 
 @media (max-width: 900px) and (min-height: 1024px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 360px;
         --margin-offset: 600px;
     }
 }
 
 @media (max-width: 480px) and (min-height: 600px) {
-    iframe#videoPlayer {
+    iframe#iframePlayer {
         --height: 180px;
         --margin-offset: 280px;
     }

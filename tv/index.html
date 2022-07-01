@@ -17,11 +17,14 @@
     <link href="css/styles.css" rel="stylesheet"/>
 </head>
 <body>
-<iframe id="videoPlayer" width="100%"
+<iframe id="iframePlayer" width="100%"
         src="https://www.youtube.com/embed/videoseries?autoplay=1&controls=1
                 &list=PLjv4Gt_enoJvL5QUt1H3bv9F3Omuj9n3g&loop=1&cc_load_policy=1&color=white"
         title="Нити времени (2022)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
                 picture-in-picture" allowfullscreen></iframe>
+<video id="player" controls autoplay="autoplay" src="/content/videos/Одноклассники мои.webm">
+    <track id="subtitles" label="Russian" kind="subtitles" srclang="ru" src="/content/subtitles/Одноклассники мои.vtt" default>
+</video>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
 <script type="text/javascript"
@@ -29,25 +32,107 @@
 <script type="text/javascript" src="js/scripts.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript">
+    class MultiPlayer {
+        constructor(videoPlayer, iframePlayer, initVolume, changePlayerVolumeHandler) {
+            this.videoPlayer = videoPlayer;
+            this.iframePlayer = iframePlayer;
+            this.volume = initVolume;
+            this.changePlayerVolumeHandler = changePlayerVolumeHandler;
+            this.videoIndex = 0;
+            this.videoPlayer.onended = () => this.nextTrack();
+        }
+        handleCommand(command) {
+            switch (command.type) {
+                case 'PLAY_YOUTUBE_VIDEO':
+                    this.loadYoutubeVideo(command.payload);
+                    break;
+                case 'PLAY_VIDEO':
+                    this.loadRawVideo(command.payload);
+                    this.videoIndex = this.getVideoIndex(videoInfo);
+                    break;
+                case 'PLAY':
+                    this.videoPlayer.play();
+                    break;
+                case 'PAUSE':
+                    this.videoPlayer.pause();
+                    break;
+                case 'NEXT':
+                    this.nextTrack();
+                    break;
+                case 'PREVIOUS':
+                    this.previousTrack();
+                    break
+                case 'VOLUME_UP':
+                    if (this.volume === 1) {
+                        return;
+                    }
+                    this.volume += 0.1;
+                    this.videoPlayer.volume = this.volume;
+                    this.changePlayerVolumeHandler(this.volume);
+                    break
+                case 'VOLUME_DOWN':
+                    if (this.volume === 0) {
+                        return;
+                    }
+                    this.volume -= 0.1;
+                    this.changePlayerVolumeHandler(this.volume);
+                    this.videoPlayer.volume = this.volume;
+                    break
+            }
+        }
+        setVideos(videos) {
+            this.videos = videos;
+            this.videosCount = this.videos.length;
+        }
+        loadYoutubeVideo(videoInfo) {
+            const youtubeLinkPattern = "https://www.youtube.com/embed/%videoId%?autoplay=1&cc_load_policy=1" +
+                "&list=%playlistId%&listType=playlist&loop=1&color=white";
+            this.iframePlayer.src = youtubeLinkPattern
+                .replace('%videoId%', videoInfo.youtube.videoId)
+                .replace('%playlistId%', videoInfo.youtube.playlistId);
+        }
+        loadRawVideo(videoInfo) {
+            this.videoPlayer.src = videoInfo.url;
+            this.videoPlayer.getElementById('subtitles').src = videoInfo.subtitlesUrl;
+        }
+        nextTrack() {
+            this.loadRawVideo(this.videos[this.videoIndex]);
+            this.videoIndex = (this.videoIndex + 1) % this.videosCount;
+        }
+        previousTrack() {
+            this.loadRawVideo(this.videos[this.videoIndex]);
+            this.videoIndex = (this.videoIndex - 1) % this.videosCount;
+        }
+        getVideoIndex(videoInfo) {
+            return videoInfo.id ?? 0;
+        }
+    }
+
     let apiUrl = 'https://albertsongs.asuscomm.com';
     let receiverId = localStorage.getItem('receiverId');
     let changeReceiverIdHandler = (receiverId) => localStorage.setItem('receiverId', receiverId);
+    let changePlayerVolumeHandler = (volume) => localStorage.setItem('volume', volume);
+
+    let multiPlayer = new MultiPlayer(
+        apiUrl,
+        document.getElementById('player'),
+        document.getElementById('iframePlayer'),
+        localStorage.getItem('volume') ?? 1,
+        changePlayerVolumeHandler
+    )
+
     let messageHandler = (mess) => {
+        console.log(mess);
         const messContainer = JSON.parse(mess.body);
         const command = JSON.parse(messContainer.message);
-        if(command.type === 'PLAY_YOUTUBE_VIDEO' && command.payload !== null){
-            loadVideo(command.payload);
+        if(command === null || command === undefined) {
+            console.error("command is not defined");
+            return;
         }
-        console.log(mess);
+        multiPlayer.handleCommand(command);
     };
-    let loadVideo = (videoInfo) => {
-        const youtubeLinkPattern = "https://www.youtube.com/embed/%videoId%?autoplay=1&cc_load_policy=1" +
-            "&list=%playlistId%&listType=playlist&loop=1&color=white";
-        document.getElementById("videoPlayer").src = youtubeLinkPattern
-            .replace('%videoId%', videoInfo.youtube.videoId)
-            .replace('%playlistId%', videoInfo.youtube.playlistId);
-    }
-    let app = new App(apiUrl, receiverId, changeReceiverIdHandler, messageHandler);
+
+    let app = new App(apiUrl, receiverId, changeReceiverIdHandler, multiPlayer, messageHandler);
     app.registerReceiver();
 </script>
 </body>
