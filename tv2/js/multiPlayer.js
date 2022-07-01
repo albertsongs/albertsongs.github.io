@@ -53,6 +53,7 @@ class MultiPlayer {
         this.videos = videos;
         this.videosCount = this.videos.length;
         this.setVideoIndexes();
+        this.loadRawVideo(videos[0]);
     }
     setVideoIndexes(){
         this.videoIndexes = [];

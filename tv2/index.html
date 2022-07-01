@@ -18,12 +18,10 @@
 </head>
 <body>
 <iframe id="iframePlayer" width="100%"
-        src="https://www.youtube.com/embed/videoseries?autoplay=1&controls=1
-                &list=PLjv4Gt_enoJvL5QUt1H3bv9F3Omuj9n3g&loop=1&cc_load_policy=1&color=white"
         title="Нити времени (2022)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
                 picture-in-picture" allowfullscreen></iframe>
-<video id="player" controls autoplay="autoplay" src="/content/videos/Одноклассники мои.webm">
-    <track id="subtitles" label="Russian" kind="subtitles" srclang="ru" src="/content/subtitles/Одноклассники мои.vtt" default>
+<video id="player" controls autoplay="autoplay">
+    <track id="subtitles" label="Russian" kind="subtitles" srclang="ru" default src="">
 </video>
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
@@ -44,17 +42,6 @@
         localStorage.getItem('volume') ?? 1,
         changePlayerVolumeHandler
     )
-
-    let messageHandler = (mess) => {
-        console.log(mess);
-        const messContainer = JSON.parse(mess.body);
-        const command = JSON.parse(messContainer.message);
-        if(command === null || command === undefined) {
-            console.error("command is not defined");
-            return;
-        }
-        multiPlayer.handleCommand(command);
-    };
 
     let app = new App(apiUrl, receiverId, multiPlayer, changeReceiverIdHandler);
     app.registerReceiver();
