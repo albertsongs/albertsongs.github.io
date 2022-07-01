@@ -74,7 +74,7 @@ class MultiPlayer {
         this.iframePlayer.style.setProperty('display', 'none');
         this.videoPlayer.style.setProperty('display', 'block');
         this.videoPlayer.src = videoInfo.url;
-        this.videoPlayer.getElementById('subtitles').src = videoInfo.subtitlesUrl;
+        this.videoPlayer.getElementsByTagName("track")[0].src = videoInfo.subtitlesUrl;
     }
     nextTrack() {
         this.loadRawVideo(this.videos[this.videoIndex]);
