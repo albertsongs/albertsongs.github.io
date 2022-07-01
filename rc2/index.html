@@ -19,12 +19,13 @@
 <div class="header">
     <h1>Нити времени</h1>
 </div>
+<div id="controlPanel"></div>
 <div id="loader" class="loader">Загрузка...</div>
 <div id="searchReceiverDesc" class="process-description">Поиск ТВ-приёмника...</div>
 <div id="loadVideosDesc" class="process-description">Загрузка списка видео...</div>
 <ul id="videoList"></ul>
 <script type="text/javascript">
-    let ui = new UI('videoList');
+    let ui = new UI('videoList', 'controlPanel');
     let app = new App('https://albertsongs.asuscomm.com', ui);
     app.initReceiverId();
 </script>

@@ -73,8 +73,10 @@ class App {
 }
 
 class UI {
-    constructor(listElemId) {
+    controlPanel = {};
+    constructor(listElemId, controlPanelElemId) {
         this.listElem = document.getElementById(listElemId);
+        this.initControlPanel(controlPanelElemId);
         this.loaderElem = document.getElementById("loader");
         this.searchReceiverDescElem = document.getElementById("searchReceiverDesc");
         this.loadVideosDescElem = document.getElementById("loadVideosDesc");
@@ -94,6 +96,29 @@ class UI {
         this.searchReceiverDescElem.style.setProperty('display', 'none');
         this.loadVideosDescElem.style.setProperty('display', 'none');
         this.loaderElem.style.setProperty('display', 'none');
+        this.renderControlPanel();
+    }
+
+    initControlPanel(controlPanelElemId) {
+        this.controlPanel.controlPanelElem = document.getElementById(controlPanelElemId);
+        this.controlPanel.playPauseElem = document.createElement("button");
+        this.controlPanel.previousElem = document.createElement("button");
+        this.controlPanel.nextElem = document.createElement("button");
+        this.controlPanel.volumeDownElem = document.createElement("button");
+        this.controlPanel.volumeUpElem = document.createElement("button");
+    }
+
+    renderControlPanel() {
+        this.controlPanel.playPauseElem.innerText = "play/pause";
+        this.controlPanel.previousElem.innerText = "previous";
+        this.controlPanel.nextElem.innerText = "previous";
+        this.controlPanel.volumeDownElem.innerText = "volume down";
+        this.controlPanel.volumeUpElem.innerText = "volume up";
+        this.controlPanel.controlPanelElem.appendChild(this.controlPanel.volumeDownElem);
+        this.controlPanel.controlPanelElem.appendChild(this.controlPanel.previousElem);
+        this.controlPanel.controlPanelElem.appendChild(this.controlPanel.playPauseElem);
+        this.controlPanel.controlPanelElem.appendChild(this.controlPanel.nextElem);
+        this.controlPanel.controlPanelElem.appendChild(this.controlPanel.volumeUpElem);
     }
 
     renderVideoList(videos) {
