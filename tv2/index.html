@@ -56,7 +56,7 @@
         multiPlayer.handleCommand(command);
     };
 
-    let app = new App(apiUrl, receiverId, changeReceiverIdHandler, multiPlayer, messageHandler);
+    let app = new App(apiUrl, receiverId, multiPlayer, changeReceiverIdHandler);
     app.registerReceiver();
 </script>
 </body>
