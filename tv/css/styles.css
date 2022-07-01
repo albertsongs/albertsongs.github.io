@@ -1,0 +1,14 @@
+@charset "UTF-8";
+/*!
+* albertsongs TV
+* Copyright 2022 albertsongs
+* Licensed under MIT (https://github.com/albertsongs/albertsongs/blob/master/LICENSE)
+*/
+body {
+    margin: 0;
+    background: black;
+}
+
+iframe {
+    border: 0;
+}
