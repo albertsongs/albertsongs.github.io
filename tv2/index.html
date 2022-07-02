@@ -38,6 +38,8 @@
     let changeReceiverIdHandler = (receiverId) => localStorage?.setItem('receiverId', receiverId);
     let changePlayerVolumeHandler = (volume) => localStorage?.setItem('volume', volume);
 
+    alert("index.html - receiverId:" + receiverId);
+
     let multiPlayer = new MultiPlayer(
         document.getElementById('player'),
         document.getElementById('iframePlayer'),

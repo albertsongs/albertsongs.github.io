@@ -10,7 +10,7 @@ class App {
     }
 
     messageHandler(mess) {
-        console.log(mess);
+        alert(mess);
         const messContainer = JSON.parse(mess.body);
         const command = JSON.parse(messContainer.message);
         if(command === null || command === undefined) {
@@ -21,6 +21,7 @@ class App {
     }
 
     connectToWebSocket() {
+        alert("connectToWebSocket - receiverId: + " + this.receiverId);
         const receiverId = this.receiverId;
         const CHANEL_PATTERN = '/user/%userId%/private';
         let sock = new SockJS(this.apiUrl + '/ws');
@@ -33,16 +34,18 @@ class App {
                 status: "JOIN"
             };
             stompClient.send('/app/message', {}, JSON.stringify(message));
-        }, (err) => console.log(err));
+        }, (err) => alert(err));
     }
 
     registerReceiver() {
+        alert("registerReceiver - receiverId: + " + this.receiverId);
         this.receiverId == null
             ? this.createReceiver()
             : this.updateReceiver();
     }
 
     createReceiver() {
+        alert("createReceiver - receiverId: + " + this.receiverId);
         const xHttp = new XMLHttpRequest();
         const receiverControllerPath = '/api/v1/receivers';
         const url = this.apiUrl + receiverControllerPath;
@@ -52,7 +55,7 @@ class App {
         };
         xHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                console.log(xHttp.responseText);
+                alert(xHttp.responseText);
                 let receiver = JSON.parse(xHttp.responseText);
                 that.receiverId = receiver.id;
                 that.changeReceiverIdHandler(that.receiverId);
@@ -66,6 +69,7 @@ class App {
     }
 
     updateReceiver() {
+        alert("updateReceiver - receiverId: + " + this.receiverId);
         const xHttp = new XMLHttpRequest();
         const receiverControllerPath = '/api/v1/receivers/' + this.receiverId;
         const url = this.apiUrl + receiverControllerPath;
@@ -78,11 +82,12 @@ class App {
                 return;
             }
             if (this.status === 200) {
-                console.log(xHttp.responseText);
+                alert(xHttp.responseText);
                 that.connectToWebSocket();
                 that.loadVideos();
             }
             else if ([400,404].includes(this.status)){
+                alert(xHttp.responseText);
                 that.receiverId = null;
                 that.changeReceiverIdHandler(that.receiverId);
                 that.createReceiver();
@@ -94,12 +99,14 @@ class App {
     }
 
     loadVideos() {
+        alert("loadVideos - receiverId: + " + this.receiverId);
         const xHttp = new XMLHttpRequest();
         const receiverControllerPath = "/api/v1/videos";
         const url = this.apiUrl + receiverControllerPath;
         let that = this;
         xHttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
+                alert(xHttp.responseText);
                 const response = JSON.parse(xHttp.responseText);
                 that.multiPlayer.setVideos(response.list);
             }
