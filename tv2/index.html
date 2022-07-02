@@ -17,6 +17,9 @@
     <link href="css/styles.css" rel="stylesheet"/>
 </head>
 <body>
+<div id="debugLog">
+    <p>--- debug log ---</p>
+</div>
 <iframe id="iframePlayer" width="100%"
         title="Нити времени (2022)" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;
                 picture-in-picture" allowfullscreen></iframe>
@@ -31,15 +34,27 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/multiPlayer.js"></script>
 <script type="text/javascript">
+    function debug(err) {
+        let debugElem = document.getElementById('debugLog');
+        let logItem = document.createElement("p");
+        logItem.innerText = err;
+        debugElem.appendChild(logItem);
+    }
+    debug("index.html - start");
+    window.onerror = (err) => debug(err); //for debug on TV
     let apiUrl = 'https://albertsongs.asuscomm.com';
-    let receiverId = localStorage.getItem('receiverId');
-    let changeReceiverIdHandler = (receiverId) => localStorage.setItem('receiverId', receiverId);
-    let changePlayerVolumeHandler = (volume) => localStorage.setItem('volume', volume);
+    let localStorage = window.localStorage ?? null;
+    debug("index.html - localStorage:" + typeof localStorage);
+    let receiverId = localStorage?.getItem('receiverId') ?? null;
+    let changeReceiverIdHandler = (receiverId) => localStorage?.setItem('receiverId', receiverId);
+    let changePlayerVolumeHandler = (volume) => localStorage?.setItem('volume', volume);
+
+    debug("index.html - receiverId:" + receiverId);
 
     let multiPlayer = new MultiPlayer(
         document.getElementById('player'),
         document.getElementById('iframePlayer'),
-        localStorage.getItem('volume') ?? 1,
+        localStorage?.getItem('volume') ?? 1,
         changePlayerVolumeHandler
     )
 
