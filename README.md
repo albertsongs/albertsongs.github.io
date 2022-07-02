@@ -5,8 +5,8 @@ Albert's Creative Corner
 ### Project structure
 
 * [Public page](https://albertsongs.github.io)
-* [TV version](https://albertsongs.github.io/tv) ([./tv](https://github.com/albertsongs/albertsongs.github.io/tree/v2.0.0/tv))
-* [Remote control for TV version](https://albertsongs.github.io/rc) ([./rc](https://github.com/albertsongs/albertsongs.github.io/tree/v2.0.0/rc))
+* [TV version](https://albertsongs.github.io/tv) ([albertsongs.github.io/tv](https://github.com/albertsongs/albertsongs.github.io/tv))
+* [Remote control for TV version](https://albertsongs.github.io/rc) ([albertsongs.github.io/rc](https://github.com/albertsongs/albertsongs.github.io/rc))
 
 ### Technology stack
 
