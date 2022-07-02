@@ -163,6 +163,3 @@ ul li.selected::before {
 #controlPanel > button {
     margin: 8px;
 }
-#debugLog {
-    color: white;
-}
