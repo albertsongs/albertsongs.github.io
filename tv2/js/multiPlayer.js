@@ -72,7 +72,12 @@ class MultiPlayer {
             .replace('%playlistId%', videoInfo.youtube.playlistId);
     }
     loadRawVideo(videoInfo) {
-        this.videoPlayer.getElementsByTagName("track")[0].src = videoInfo.subtitlesUrl;
+        if (videoInfo.subtitlesUrl !== null) {
+            const trackPattern = "" +
+                "<track id='subtitles' label='Russian' kind='subtitles' srclang='ru' " +
+                "src='%source%' default>"
+            this.videoPlayer.innerHTML = trackPattern.replace('%source%', videoInfo.subtitlesUrl);
+        }
         this.videoPlayer.src = videoInfo.url;
         this.iframePlayer.style.setProperty('display', 'none');
         this.videoPlayer.style.setProperty('display', 'block');
