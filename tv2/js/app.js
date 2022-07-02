@@ -10,7 +10,7 @@ class App {
     }
 
     messageHandler(mess) {
-        alert(mess);
+        debug(mess);
         const messContainer = JSON.parse(mess.body);
         const command = JSON.parse(messContainer.message);
         if(command === null || command === undefined) {
@@ -22,7 +22,7 @@ class App {
     }
 
     connectToWebSocket() {
-        alert("connectToWebSocket - receiverId: + " + this.receiverId);
+        debug("connectToWebSocket - receiverId: + " + this.receiverId);
         const receiverId = this.receiverId;
         const CHANEL_PATTERN = '/user/%userId%/private';
         let sock = new SockJS(this.apiUrl + '/ws');
