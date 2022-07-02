@@ -31,6 +31,7 @@
 <script type="text/javascript" src="js/app.js"></script>
 <script type="text/javascript" src="js/multiPlayer.js"></script>
 <script type="text/javascript">
+    window.onerror = (err) => alert(err); //for debug on TV
     let apiUrl = 'https://albertsongs.asuscomm.com';
     let localStorage = window.localStorage;
     let receiverId = localStorage?.getItem('receiverId') ?? null;
