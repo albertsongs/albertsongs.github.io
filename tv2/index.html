@@ -40,9 +40,11 @@
         logItem.innerText = err;
         debugElem.appendChild(logItem);
     }
+    debug("index.html - start");
     window.onerror = (err) => debug(err); //for debug on TV
     let apiUrl = 'https://albertsongs.asuscomm.com';
-    let localStorage = window.localStorage;
+    let localStorage = window.localStorage ?? null;
+    debug("index.html - localStorage:" + typeof localStorage);
     let receiverId = localStorage?.getItem('receiverId') ?? null;
     let changeReceiverIdHandler = (receiverId) => localStorage?.setItem('receiverId', receiverId);
     let changePlayerVolumeHandler = (volume) => localStorage?.setItem('volume', volume);
