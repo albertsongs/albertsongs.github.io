@@ -1,5 +1,7 @@
 function correctVideoPlayerHeight() {
-    let videoPlayer = document.getElementById("iframePlayer");
+    let iframeVideoIPlayer = document.getElementById("iframePlayer");
+    iframeVideoIPlayer.style.setProperty("height", window.innerHeight + "px");
+    let videoPlayer = document.getElementById("player");
     videoPlayer.style.setProperty("height", window.innerHeight + "px");
 }
 
