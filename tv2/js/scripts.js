@@ -8,21 +8,12 @@ function correctVideoPlayerHeight() {
 window.onresize = correctVideoPlayerHeight;
 correctVideoPlayerHeight();
 
-function debug(err) {
-    let debugElem = document.getElementById('debugLog');
-    let logItem = document.createElement("p");
-    logItem.innerText = err;
-    debugElem.appendChild(logItem);
-}
-debug("index.html - start");
-window.onerror = (err) => debug(err); //for debug on TV
+let logger = new Logger(document.getElementById('appLog'));
+window.onerror = (err) => logger.debug(err); //for debug on TV
 let apiUrl = 'https://albertsongs.asuscomm.com';
-debug("index.html - localStorage:" + typeof localStorage);
 let receiverId = localStorage.getItem('receiverId');
 let changeReceiverIdHandler = (receiverId) => localStorage.setItem('receiverId', receiverId);
 let changePlayerVolumeHandler = (volume) => localStorage.setItem('volume', volume);
-
-debug("index.html - receiverId:" + receiverId);
 
 let multiPlayer = new MultiPlayer(
     document.getElementById('player'),
@@ -31,5 +22,5 @@ let multiPlayer = new MultiPlayer(
     changePlayerVolumeHandler
 )
 
-let app = new App(apiUrl, receiverId, multiPlayer, changeReceiverIdHandler);
+let app = new App(apiUrl, receiverId, multiPlayer, changeReceiverIdHandler, logger);
 app.registerReceiver();

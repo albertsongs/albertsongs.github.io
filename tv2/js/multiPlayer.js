@@ -72,8 +72,8 @@ class MultiPlayer {
             .replace('%playlistId%', videoInfo.youtube.playlistId);
     }
     loadRawVideo(videoInfo) {
-        this.videoPlayer.src = videoInfo.url;
         this.videoPlayer.getElementsByTagName("track")[0].src = videoInfo.subtitlesUrl;
+        this.videoPlayer.src = videoInfo.url;
         this.iframePlayer.style.setProperty('display', 'none');
         this.videoPlayer.style.setProperty('display', 'block');
     }

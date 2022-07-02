@@ -19,6 +19,6 @@ video#player {
     height: 100%;
 }
 
-#debugLog {
+#appLog {
     color: white;
 }
